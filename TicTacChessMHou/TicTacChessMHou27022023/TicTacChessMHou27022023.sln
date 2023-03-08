@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33328.57
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacChessMHou27022023", "TicTacChessMHou27022023\TicTacChessMHou27022023.csproj", "{C705222D-2650-4A0F-B8CF-C6170188D58A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C705222D-2650-4A0F-B8CF-C6170188D58A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C705222D-2650-4A0F-B8CF-C6170188D58A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C705222D-2650-4A0F-B8CF-C6170188D58A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C705222D-2650-4A0F-B8CF-C6170188D58A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBA4E58E-B75B-4ABB-A4DA-C42975F92DAA}
+	EndGlobalSection
+EndGlobal
