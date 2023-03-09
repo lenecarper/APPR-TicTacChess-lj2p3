@@ -12,6 +12,10 @@ namespace TicTacChessMHou27022023
 {
     public partial class Form1 : Form
     {
+        string selectedPieceColor = "";
+
+        PictureBox pcbFrom = null;
+        PictureBox pcbTo = null;
         public Form1()
         {
             InitializeComponent();
@@ -19,38 +23,65 @@ namespace TicTacChessMHou27022023
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            selectedPieceColor = "White";
+            UpdatePieceColor();
 
+            foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
+            {
+                item.AllowDrop = true;
+            }
         }
 
-        private void ClickTile(object sender, EventArgs e)
+        private void UpdatePieceColor()
         {
-            PictureBox pic = sender as PictureBox;
-
-            pic.Image = TicTacChessMHou27022023.Properties.Resources.flappybird;
+            if (selectedPieceColor == "White")
+            {
+                pcbKnight.Image = Properties.Resources.Chess_Knight_White;
+                pcbRook.Image = Properties.Resources.Chess_Rook_White;
+                pcbQueen.Image = Properties.Resources.Chess_Queen_White;
+            }
+            else if (selectedPieceColor == "Black")
+            {
+                pcbKnight.Image = Properties.Resources.Chess_Knight_Black;
+                pcbRook.Image = Properties.Resources.Chess_Rook_Black;
+                pcbQueen.Image = Properties.Resources.Chess_Queen_Black;
+            }
         }
 
-        private void rdbWhiteMHou_CheckedChanged(object sender, EventArgs e)
+        private void rdbWhite_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdbWhiteMHou.Checked)
-            {
-                this.pbxPieceOneMHou.Image = TicTacChessMHou27022023.Properties.Resources.Chess_Queen_White;
-                this.pbxPieceTwoMHou.Image = TicTacChessMHou27022023.Properties.Resources.Chess_Rook_White;
-                this.pbxPieceThreeMHou.Image = TicTacChessMHou27022023.Properties.Resources.Chess_Knight_White;
-            }
-            else
-            {
-                this.pbxPieceOneMHou.Image = TicTacChessMHou27022023.Properties.Resources.Chess_Queen_Black;
-                this.pbxPieceTwoMHou.Image = TicTacChessMHou27022023.Properties.Resources.Chess_Rook_Black;
-                this.pbxPieceThreeMHou.Image = TicTacChessMHou27022023.Properties.Resources.Chess_Knight_Black;
-            }
+            selectedPieceColor = "White";
+            UpdatePieceColor();
+        }
+
+        private void rdbBlack_CheckedChanged(object sender, EventArgs e)
+        {
+            selectedPieceColor = "Black";
+            UpdatePieceColor();
         }
 
         private void btnRestartGameMHou_Click(object sender, EventArgs e)
         {
-            rdbWhiteMHou.Checked = true;
-            // PictureBox pic = sender as PictureBox;
+            
+        }
 
-            // pic.Image = null;
+        private void pcbAllPieces_MouseDown(object sender, MouseEventArgs e)
+        {
+            pcbFrom = (PictureBox)sender;
+            pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+        }
+
+        private void pcbBoard_DragDrop(object sender, DragEventArgs e)
+        {
+            pcbTo = (PictureBox)sender;
+            Image getPicture = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
+            pcbTo.Image = getPicture;
+        }
+
+        private void pcbBoard_DragOver(object sender, DragEventArgs e)
+        {
+            pcbTo = (PictureBox)sender;
+            e.Effect = DragDropEffects.Copy;
         }
     }
 }
