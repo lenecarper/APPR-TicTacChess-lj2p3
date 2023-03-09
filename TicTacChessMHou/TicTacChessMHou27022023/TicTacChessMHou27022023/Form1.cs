@@ -13,6 +13,7 @@ namespace TicTacChessMHou27022023
     public partial class Form1 : Form
     {
         string selectedPieceColor = "";
+        bool pieceAvailable = true;
 
         PictureBox pcbFrom = null;
         PictureBox pcbTo = null;
@@ -29,6 +30,22 @@ namespace TicTacChessMHou27022023
             foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
             {
                 item.AllowDrop = true;
+            }
+        }
+
+        private void CheckMoves()
+        {
+            if (selectedPieceColor == "White")
+            {
+                pcbSeven.BackColor = Color.GreenYellow;
+                pcbEight.BackColor = Color.GreenYellow;
+                pcbNine.BackColor = Color.GreenYellow;
+            }
+            else if (selectedPieceColor == "Black")
+            {
+                pcbOne.BackColor = Color.GreenYellow;
+                pcbTwo.BackColor = Color.GreenYellow;
+                pcbThree.BackColor = Color.GreenYellow;
             }
         }
 
@@ -60,13 +77,23 @@ namespace TicTacChessMHou27022023
             UpdatePieceColor();
         }
 
-        private void btnRestartGameMHou_Click(object sender, EventArgs e)
+        private void btnRestart_Click(object sender, EventArgs e)
         {
-            
+            selectedPieceColor = "White";
+            UpdatePieceColor();
+            rdbWhite.Checked = true;
+
+            foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
+            {
+                item.AllowDrop = true;
+                item.Image = null;
+                item.BackColor = SystemColors.Control;
+            }
         }
 
         private void pcbAllPieces_MouseDown(object sender, MouseEventArgs e)
         {
+            CheckMoves();
             pcbFrom = (PictureBox)sender;
             pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
         }

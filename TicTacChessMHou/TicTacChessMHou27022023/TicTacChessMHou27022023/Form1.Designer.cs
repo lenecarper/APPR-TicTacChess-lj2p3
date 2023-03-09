@@ -112,6 +112,7 @@ namespace TicTacChessMHou27022023
             // 
             // pcbOne
             // 
+            this.pcbOne.BackColor = System.Drawing.SystemColors.Control;
             this.pcbOne.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pcbOne.Location = new System.Drawing.Point(8, 23);
             this.pcbOne.Margin = new System.Windows.Forms.Padding(4);
@@ -281,6 +282,7 @@ namespace TicTacChessMHou27022023
             this.btnRestart.TabIndex = 50;
             this.btnRestart.Text = "Restart game";
             this.btnRestart.UseVisualStyleBackColor = true;
+            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 
             // rdbBlack
             // 
