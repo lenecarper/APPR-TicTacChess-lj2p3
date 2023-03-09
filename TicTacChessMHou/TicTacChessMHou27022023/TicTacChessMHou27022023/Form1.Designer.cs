@@ -84,6 +84,7 @@ namespace TicTacChessMHou27022023
             this.rdbWhite.TabStop = true;
             this.rdbWhite.Text = "White";
             this.rdbWhite.UseVisualStyleBackColor = true;
+            this.rdbWhite.CheckedChanged += new System.EventHandler(this.rdbWhite_CheckedChanged);
             // 
             // gbxBoard
             // 
@@ -398,7 +399,7 @@ namespace TicTacChessMHou27022023
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(636, 546);
+            this.ClientSize = new System.Drawing.Size(634, 546);
             this.Controls.Add(this.rdbWhite);
             this.Controls.Add(this.gbxBoard);
             this.Controls.Add(this.btnRestart);
@@ -407,6 +408,7 @@ namespace TicTacChessMHou27022023
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.gbxBoard.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcbOne)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNine)).EndInit();
