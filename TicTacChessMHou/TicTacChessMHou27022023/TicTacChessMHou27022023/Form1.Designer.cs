@@ -124,6 +124,7 @@ namespace TicTacChessMHou27022023
             this.pcbOne.Tag = "11";
             this.pcbOne.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbOne.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbOne.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbNine
             // 
@@ -138,6 +139,7 @@ namespace TicTacChessMHou27022023
             this.pcbNine.Tag = "33";
             this.pcbNine.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbNine.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbNine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbTwo
             // 
@@ -152,6 +154,7 @@ namespace TicTacChessMHou27022023
             this.pcbTwo.Tag = "21";
             this.pcbTwo.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbTwo.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbTwo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbEight
             // 
@@ -166,6 +169,7 @@ namespace TicTacChessMHou27022023
             this.pcbEight.Tag = "23";
             this.pcbEight.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbEight.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbEight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbSeven
             // 
@@ -180,6 +184,7 @@ namespace TicTacChessMHou27022023
             this.pcbSeven.Tag = "13";
             this.pcbSeven.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbSeven.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbSeven.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbSix
             // 
@@ -194,6 +199,7 @@ namespace TicTacChessMHou27022023
             this.pcbSix.Tag = "32";
             this.pcbSix.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbSix.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbSix.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbThree
             // 
@@ -208,6 +214,7 @@ namespace TicTacChessMHou27022023
             this.pcbThree.Tag = "31";
             this.pcbThree.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbThree.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbThree.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbFive
             // 
@@ -222,6 +229,7 @@ namespace TicTacChessMHou27022023
             this.pcbFive.Tag = "22";
             this.pcbFive.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbFive.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbFive.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pcbFour
             // 
@@ -236,6 +244,7 @@ namespace TicTacChessMHou27022023
             this.pcbFour.Tag = "12";
             this.pcbFour.DragDrop += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragDrop);
             this.pcbFour.DragOver += new System.Windows.Forms.DragEventHandler(this.pcbBoard_DragOver);
+            this.pcbFour.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbBoard_MouseDown);
             // 
             // pnlLeft
             // 
