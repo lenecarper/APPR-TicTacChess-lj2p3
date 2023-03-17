@@ -14,7 +14,7 @@ namespace TicTacChessMHou27022023
         private string basePictureboxName = "";
         // The picturebox that the piece is currently occupying
         private string currentPictureboxName = "";
-
+        private bool isOnBoard;
         // Available spaces to move the piece to, old & new location axis'
         private string moveOptions;
         int oldHor, oldVer, newHor, newVer;
@@ -32,11 +32,17 @@ namespace TicTacChessMHou27022023
         public string GetColor() { return color;  }
         public string GetBasePictureboxName() { return basePictureboxName; }
         public string GetCurrentPicturebox() { return currentPictureboxName; }
+        public bool GetIsOnBoard() { return isOnBoard; }
 
         //Set
         public void SetCurrentPicturebox(string newCurrentPicturebox)
         {
             currentPictureboxName = newCurrentPicturebox;
+        }
+
+        public void SetOnBoard()
+        {
+            isOnBoard = true;
         }
 
         public string GetMoveOptions(int curHor, int curVer, int _newHor, int _newVer)
