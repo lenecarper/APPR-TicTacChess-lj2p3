@@ -40,7 +40,7 @@ namespace TicTacChessMHou27022023
             currentPictureboxName = newCurrentPicturebox;
         }
 
-        public void SetOnBoard()
+        public void SetOnBoard(bool isOnBoard)
         {
             isOnBoard = true;
         }
