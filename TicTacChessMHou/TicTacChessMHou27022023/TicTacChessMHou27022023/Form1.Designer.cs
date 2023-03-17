@@ -53,6 +53,7 @@ namespace TicTacChessMHou27022023
             this.pcbPawn = new System.Windows.Forms.PictureBox();
             this.gbxPieces = new System.Windows.Forms.GroupBox();
             this.pcbKnight = new System.Windows.Forms.PictureBox();
+            this.lblGamestate = new System.Windows.Forms.Label();
             this.gbxBoard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbOne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNine)).BeginInit();
@@ -406,11 +407,21 @@ namespace TicTacChessMHou27022023
             this.pcbKnight.Tag = "0";
             this.pcbKnight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbAllPieces_MouseDown);
             // 
+            // lblGamestate
+            // 
+            this.lblGamestate.AutoSize = true;
+            this.lblGamestate.Location = new System.Drawing.Point(200, 38);
+            this.lblGamestate.Name = "lblGamestate";
+            this.lblGamestate.Size = new System.Drawing.Size(94, 17);
+            this.lblGamestate.TabIndex = 54;
+            this.lblGamestate.Text = "Set up pieces";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 546);
+            this.Controls.Add(this.lblGamestate);
             this.Controls.Add(this.rdbWhite);
             this.Controls.Add(this.gbxBoard);
             this.Controls.Add(this.btnRestart);
@@ -468,5 +479,6 @@ namespace TicTacChessMHou27022023
         private System.Windows.Forms.PictureBox pcbPawn;
         private System.Windows.Forms.GroupBox gbxPieces;
         private System.Windows.Forms.PictureBox pcbKnight;
+        private System.Windows.Forms.Label lblGamestate;
     }
 }
