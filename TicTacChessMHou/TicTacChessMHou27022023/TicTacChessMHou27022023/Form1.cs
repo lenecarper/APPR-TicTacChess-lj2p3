@@ -26,7 +26,7 @@ namespace TicTacChessMHou27022023
         Board activeBoard = null;
         string pieceOptions = "";
         int horizontal, vertical;
-        PictureBox pbxForbidden;
+        PictureBox pcbForbidden;
         Board forbidden;
 
         public Form1()
@@ -41,8 +41,29 @@ namespace TicTacChessMHou27022023
 
             foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
             {
-                 item.AllowDrop = true;
+                item.AllowDrop = true;
             }
+
+            SetupGame();
+        }
+
+        private void pcbBoard_MouseDown(object sender, MouseEventArgs e)
+        {
+            pcbFrom = (PictureBox)sender;
+
+            // Gets the previous piece location
+            horizontal = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(0, 1));
+            vertical = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(1, 1));
+
+            // Search the board for selected pieces
+            activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
+            activePiece = activeBoard.GetPiece();
+
+            GetBoardOptions();
+            UpdateLocations();
+            CheckForIllegalMoves();
+
+            pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
         }
 
         private void CheckMoves()
@@ -92,7 +113,10 @@ namespace TicTacChessMHou27022023
 
         private void ClearBoardColors()
         {
-
+            foreach (PictureBox pb in gbxBoard.Controls.OfType<PictureBox>())
+            {
+                pb.BackColor = Color.Transparent;
+            }
         }
 
         private void GetBoardOptions()
@@ -109,7 +133,78 @@ namespace TicTacChessMHou27022023
 
         private void CheckForIllegalMoves()
         {
+            //Gets the location of all default neighbours
+            Board right = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical());
+            Board left = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() - 1 && x.GetVertical() == activeBoard.GetVertical());
+            Board up = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() && x.GetVertical() == activeBoard.GetVertical() - 1);
+            Board down = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() && x.GetVertical() == activeBoard.GetVertical() + 1);
 
+            if (activePiece != null)
+            {
+                if (activePiece.GetName() == "Rook" || activePiece.GetName() == "Queen")
+                {
+                    CheckForNeighbour(right, "Right");
+                    CheckForNeighbour(left, "Left");
+                    CheckForNeighbour(up, "Up");
+                    CheckForNeighbour(down, "Down");
+                }
+                if (activePiece.GetName() == "Queen")
+                {
+                    //Gets the location of all the diagonal neighbours 
+                    Board upRight = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical() - 1);
+                    Board upLeft = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() - 1 && x.GetVertical() == activeBoard.GetVertical() - 1);
+                    Board downRight = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical() + 1);
+                    Board downLeft = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() - 1 && x.GetVertical() == activeBoard.GetVertical() + 1);
+
+                    CheckForNeighbour(upRight, "UpRight");
+                    CheckForNeighbour(upLeft, "UpLeft");
+                    CheckForNeighbour(downRight, "DownRight");
+                    CheckForNeighbour(downLeft, "DownLeft");
+                }
+            }
+        }
+
+        private void CheckForNeighbour(Board neighbour, string direction)
+        {
+            if (neighbour != null && neighbour.GetPiece() != null)
+            {
+                switch (direction)
+                {
+                    case "Left":
+                        //Checks if there is a board on the left (-1) of the neighbour of the selected piece
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() - 1 && o.GetVertical() == neighbour.GetVertical());
+                        break;
+                    case "Right":
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() + 1 && o.GetVertical() == neighbour.GetVertical());
+                        break;
+                    case "Up":
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() && o.GetVertical() == neighbour.GetVertical() - 1);
+                        break;
+                    case "Down":
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() && o.GetVertical() == neighbour.GetVertical() + 1);
+                        break;
+                    case "UpRight":
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() + 1 && o.GetVertical() == neighbour.GetVertical() - 1);
+                        break;
+                    case "UpLeft":
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() - 1 && o.GetVertical() == neighbour.GetVertical() - 1);
+                        break;
+                    case "DownRight":
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() + 1 && o.GetVertical() == neighbour.GetVertical() + 1);
+                        break;
+                    case "DownLeft":
+                        forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() - 1 && o.GetVertical() == neighbour.GetVertical() + 1);
+                        break;
+                    default:
+                        break;
+                }
+                //If there is a forbidden bord it sets this picturebox backcolor to transparent
+                if (forbidden != null)
+                {
+                    pcbForbidden = (PictureBox)gbxBoard.Controls.Find(forbidden.GetPictureName(), false)[0];
+                    pcbForbidden.BackColor = Color.Transparent;
+                }
+            }
         }
 
         private void rdbWhite_CheckedChanged(object sender, EventArgs e)
@@ -208,25 +303,6 @@ namespace TicTacChessMHou27022023
             {
                 e.Effect = DragDropEffects.None;
             }
-        }
-
-        private void pcbBoard_MouseDown(object sender, MouseEventArgs e)
-        {
-            pcbFrom = (PictureBox)sender;
-
-            // Gets the previous piece location
-            horizontal = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(0, 1));
-            vertical = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(1, 1));
-
-            // Search the board for selected pieces
-            activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
-            activePiece = activeBoard.GetPiece();
-
-            GetBoardOptions();
-            UpdateLocations();
-            CheckForIllegalMoves();
-
-            pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
         }
 
         // Setup the pieces and board
