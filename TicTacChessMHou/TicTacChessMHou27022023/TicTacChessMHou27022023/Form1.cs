@@ -73,7 +73,13 @@ namespace TicTacChessMHou27022023
             UpdateLocations();
             CheckForIllegalMoves();
 
-            pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+            if (gameStart == true)
+            {
+                if (pcbFrom.Image != null)
+                {
+                    pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+                }
+            }
         }
 
         private void GetStartingOptions()
@@ -221,12 +227,14 @@ namespace TicTacChessMHou27022023
         {
             selectedPieceColor = "White";
             UpdatePieceColor();
+            UpdatePieceOnBoardColors();
         }
 
         private void rdbBlack_CheckedChanged(object sender, EventArgs e)
         {
             selectedPieceColor = "Black";
             UpdatePieceColor();
+            UpdatePieceOnBoardColors();
         }
 
         private void btnRestart_Click(object sender, EventArgs e)
@@ -250,7 +258,6 @@ namespace TicTacChessMHou27022023
             pcbFrom = (PictureBox)sender;
             if (pcbFrom.BackColor == Color.Transparent)
             {
-
                 foreach (Piece item in pieceList)
                 {
                     if (item.GetBasePictureboxName() == pcbFrom.Name && item.GetColor() == selectedPieceColor)
@@ -258,10 +265,10 @@ namespace TicTacChessMHou27022023
                         activePiece = item;
                     }
                 }
-            }
-            GetStartingOptions();
+                GetStartingOptions();
 
-            pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+                pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+            }
         }
 
         private void pcbBoard_DragDrop(object sender, DragEventArgs e)
@@ -317,14 +324,6 @@ namespace TicTacChessMHou27022023
         private void pcbBoard_DragOver(object sender, DragEventArgs e)
         {
             pcbTo = (PictureBox)sender;
-
-            foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
-            {
-                if (item.Image != null)
-                {
-                    item.BackColor = Color.Red;
-                }
-            }
 
             if (pcbTo.BackColor == Color.Green)
             {
