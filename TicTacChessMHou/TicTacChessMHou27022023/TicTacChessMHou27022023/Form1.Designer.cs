@@ -129,6 +129,7 @@ namespace TicTacChessMHou27022023
             // 
             // pcbNine
             // 
+            this.pcbNine.BackColor = System.Drawing.SystemColors.Control;
             this.pcbNine.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pcbNine.Location = new System.Drawing.Point(335, 324);
             this.pcbNine.Margin = new System.Windows.Forms.Padding(4);

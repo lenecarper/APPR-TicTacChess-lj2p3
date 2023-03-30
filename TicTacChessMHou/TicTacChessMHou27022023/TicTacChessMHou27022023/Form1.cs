@@ -61,23 +61,26 @@ namespace TicTacChessMHou27022023
         {
             pcbFrom = (PictureBox)sender;
 
-            // Gets the previous piece location
-            horizontal = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(0, 1));
-            vertical = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(1, 1));
-
-            // Search the board for selected pieces
-            activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
-            activePiece = activeBoard.GetPiece();
-
-            GetBoardOptions();
-            UpdateLocations();
-            CheckForIllegalMoves();
-
-            if (gameStart == true)
+            if (pcbFrom.BackColor == Color.Transparent)
             {
-                if (pcbFrom.Image != null)
+                // Gets the previous piece location
+                horizontal = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(0, 1));
+                vertical = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(1, 1));
+
+                // Search the board for selected pieces
+                activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
+                activePiece = activeBoard.GetPiece();
+
+                GetBoardOptions();
+                UpdateLocations();
+                CheckForIllegalMoves();
+
+                if (gameStart == true)
                 {
-                    pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+                    if (pcbFrom.Image != null && pcbFrom.BackColor == Color.Transparent)
+                    {
+                        pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
+                    }
                 }
             }
         }
