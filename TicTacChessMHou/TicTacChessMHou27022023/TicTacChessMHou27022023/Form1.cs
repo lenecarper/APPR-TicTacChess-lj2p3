@@ -242,6 +242,8 @@ namespace TicTacChessMHou27022023
             selectedPieceColor = "White";
             UpdatePieceColor();
             rdbWhite.Checked = true;
+            lblGamestate.Text = "Set up pieces";
+            // SetupGame();
 
             foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
             {

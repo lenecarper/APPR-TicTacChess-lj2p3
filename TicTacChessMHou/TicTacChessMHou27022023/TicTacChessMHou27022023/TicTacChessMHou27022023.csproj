@@ -96,9 +96,6 @@
     <None Include="Resources\Chess_Rook_Black.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Chess_Knight_Black.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Chess_Queen_Black.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
