@@ -247,12 +247,22 @@ namespace TicTacChessMHou27022023
             UpdatePieceOnBoardColors();
             rdbWhite.Checked = true;
             lblGamestate.Text = "Set up pieces";
-            
+            onBoardCount = 0;
+            // pcbFrom = null;
+            // pcbTo = null;
+            // activePiece = null;
+
             foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
             {
                 item.AllowDrop = true;
                 item.Image = null;
                 item.BackColor = SystemColors.Control;
+            }
+
+            foreach (PictureBox pb in gbxPieces.Controls.OfType<PictureBox>())
+            {
+                pb.AllowDrop = true;
+                pb.BackColor = Color.Transparent;
             }
         }
 
@@ -298,10 +308,12 @@ namespace TicTacChessMHou27022023
                 if (turnColor == "White")
                 {
                     turnColor = "Black";
+                    lblGamestate.Text = "Black's turn";
                 }
                 else
                 {
                     turnColor = "White";
+                    lblGamestate.Text = "White's turn";
                 }
                 CheckWinner();
             }
@@ -438,11 +450,20 @@ namespace TicTacChessMHou27022023
 
             if (startingBlack.Length == 3 && startingWhite.Length == 3)
             {
-                Console.WriteLine($"{startingWhite} {startingBlack}");
+                // Console.WriteLine($"{startingWhite} {startingBlack}"); // Debugging
                 lblGamestate.Text = "Game started, white begins";
+
                 gameStart = true;
                 UpdateAllBoardcolors();
             }
+            /* else if (startingBlack.Length == 3 && startingWhite.Length == 3 && turnColor == "White")
+            {
+                lblGamestate.Text = "White's turn";
+            }
+            else if (startingBlack.Length == 3 && startingWhite.Length == 3 && turnColor == "Black")
+            {
+                lblGamestate.Text = "Black's turn";
+            } */
         }
 
         private void UpdatePieceOnBoardColors()
