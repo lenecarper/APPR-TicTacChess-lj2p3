@@ -43,6 +43,7 @@ namespace TicTacChessMHou27022023
         bool arduinoOn = false;
         bool moveBusy = false;
         string commando;
+        // object arduino = null; // Shell variable, inaccessible right now most likely (create class instead)
         int moveArduinoCounter = 0;
         int baseDropVertical = 0;
         Form2 arduinoForm = null;
@@ -666,6 +667,10 @@ namespace TicTacChessMHou27022023
             }
             return currentStart;
         }
-    }
+        
+        public void NextArduinoStep()
+        {
 
+        }
+    }
 }

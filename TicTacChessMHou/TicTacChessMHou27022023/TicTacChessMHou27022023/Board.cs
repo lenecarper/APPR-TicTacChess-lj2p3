@@ -74,6 +74,20 @@ namespace TicTacChessMHou27022023
         public int GetArduinoVer() { return arduinoVer; }
 
         // Set
+    }
 
+    class arduino
+    {
+        // Variables
+        private string writeContent = "";
+
+        public void WriteArduino(string c_writeContent)
+        {
+            writeContent = c_writeContent;
+        }
+
+        // Get
+
+        // Set
     }
 }
