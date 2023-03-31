@@ -82,6 +82,14 @@ namespace TicTacChessMHou27022023
                         pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
                     }
                 }
+
+                foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
+                {
+                    if (item.BackColor == Color.Green)
+                    {
+                        item.BackColor = Color.Transparent;
+                    }
+                }
             }
         }
 
@@ -248,9 +256,8 @@ namespace TicTacChessMHou27022023
             rdbWhite.Checked = true;
             lblGamestate.Text = "Set up pieces";
             onBoardCount = 0;
-            // pcbFrom = null;
-            // pcbTo = null;
-            // activePiece = null;
+            startingBlack = "";
+            startingWhite = "";
 
             foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
             {
@@ -420,7 +427,9 @@ namespace TicTacChessMHou27022023
                                 if (endPositions != startingWhite)
                                 {
                                     MessageBox.Show("White wins");
+                                    lblGamestate.Text = "White wins. Click restart to play again.";
                                     SetupGame();
+                                    // onBoardCount = 0;
                                 }
                             }
                             else
@@ -428,7 +437,9 @@ namespace TicTacChessMHou27022023
                                 if (endPositions != startingBlack)
                                 {
                                     MessageBox.Show("Black wins");
+                                    lblGamestate.Text = "Black wins. Click restart to play again.";
                                     SetupGame();
+                                    // onBoardCount = 0;
                                 }
                             }
                         }
