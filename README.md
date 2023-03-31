@@ -1,4 +1,4 @@
 # APPR-TicTacChess-lj2p3
 <pre>
-``` test ```
+- C# Chess Game integrated with Arduino
 </pre>
