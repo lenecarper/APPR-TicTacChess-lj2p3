@@ -39,6 +39,14 @@ namespace TicTacChessMHou27022023
         string startingWhite = "";
         string startingBlack = "";
 
+        // Arduino variables
+        bool arduinoOn = false;
+        bool moveBusy = false;
+        string commando;
+        int moveArduinoCounter = 0;
+        int baseDropVertical = 0;
+        Form2 arduinoForm = null;
+
         public Form1()
         {
             InitializeComponent();
@@ -517,6 +525,105 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        private void ckxArduino_CheckedChanged(object sender, EventArgs e)
+        {
+            arduinoOn = ckxArduino.Checked;
+            if (arduinoOn)
+            {
+                arduinoForm = new Form2();
+                arduinoForm.Show();
+            }
+            else
+            {
+                arduinoForm.Close();
+            }
+        }
+
+        private void tmrArduino_Tick(object sender, EventArgs e)
+        {
+            lblGamestate.Text = "Arduino is running commands";
+            if (moveArduinoCounter == 0)
+            {
+                commando = $"RS:{oldBoard.GetArduinoRot()}";
+            }
+            else if (moveArduinoCounter == 1)
+            {
+                commando = $"HS:{oldBoard.GetArduinoHor()}";
+            }
+            else if (moveArduinoCounter == 2)
+            {
+                commando = $"VS:{oldBoard.GetArduinoVer()}";
+            }
+            else if (moveArduinoCounter == 3)
+            {
+                commando = $"CS:1";
+            }
+            else if (moveArduinoCounter == 4)
+            {
+                commando = $"SS:1";
+            }
+            else if (moveArduinoCounter == 5)
+            {
+                commando = $"VS:{baseDropVertical}";
+            }
+            else if (moveArduinoCounter == 6)
+            {
+                commando = $"RS:{newBoard.GetArduinoRot()}";
+            }
+            else if (moveArduinoCounter == 7)
+            {
+                commando = $"HS:{newBoard.GetArduinoHor()}";
+            }
+            else if (moveArduinoCounter == 8)
+            {
+                commando = $"VS:{baseDropVertical}";
+            }
+            else if (moveArduinoCounter == 9)
+            {
+                commando = $"SS:0";
+            }
+            else if (moveArduinoCounter == 10)
+            {
+                commando = $"CS:0";
+            }
+            else if (moveArduinoCounter == 11)
+            {
+                commando = $"ZS:3";
+            }
+            else if (moveArduinoCounter == 12)
+            {
+                commando = $"ZS:2";
+            }
+            else if (moveArduinoCounter == 13)
+            {
+                commando = $"ZS:1";
+            }
+            else if (moveArduinoCounter == 14)
+            {
+                tmrArduino.Enabled = false;
+                if (turnColor == "White")
+                {
+                    lblGamestate.Text = "Black's turn";
+                    turnColor = "Black";
+                }
+                else
+                {
+                    lblGamestate.Text = "White's turn";
+                    turnColor = "White";
+                }
+            }
+            UpdateAllBoardcolors();
+            gameStart = true;
+            CheckWinner(); 
+            
+             
+            if (moveBusy == false)
+            {
+                moveBusy = true;
+                arduino.WriteArduino(commando);
+            }
+        }
+
         public string GetStartingNumber(string currentStart)
         {
             int newNumber = boardList.IndexOf(boardList.FirstOrDefault(f => f.GetPictureName() == pcbTo.Name));
@@ -560,4 +667,5 @@ namespace TicTacChessMHou27022023
             return currentStart;
         }
     }
+
 }
