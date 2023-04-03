@@ -43,7 +43,8 @@ namespace TicTacChessMHou27022023
         bool arduinoOn = false;
         bool moveBusy = false;
         string commando;
-        // object arduino = null; // Shell variable, inaccessible right now most likely (create class instead)
+        Board oldBoard = null;
+        Board newBoard = null;
         int moveArduinoCounter = 0;
         int baseDropVertical = 0;
         Form2 arduinoForm = null;
@@ -169,7 +170,7 @@ namespace TicTacChessMHou27022023
 
         private void CheckForIllegalMoves()
         {
-            //Gets the location of all default neighbours
+            // Gets the location of all default neighbours
             Board right = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical());
             Board left = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() - 1 && x.GetVertical() == activeBoard.GetVertical());
             Board up = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() && x.GetVertical() == activeBoard.GetVertical() - 1);
@@ -186,7 +187,7 @@ namespace TicTacChessMHou27022023
                 }
                 if (activePiece.GetName() == "Queen")
                 {
-                    //Gets the location of all the diagonal neighbours 
+                    // Gets the location of all the diagonal neighbours 
                     Board upRight = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical() - 1);
                     Board upLeft = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() - 1 && x.GetVertical() == activeBoard.GetVertical() - 1);
                     Board downRight = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical() + 1);
@@ -207,7 +208,7 @@ namespace TicTacChessMHou27022023
                 switch (direction)
                 {
                     case "Left":
-                        //Checks if there is a board on the left (-1) of the neighbour of the selected piece
+                        // Checks if there is a board on the left (-1) of the neighbour of the selected piece
                         forbidden = boardList.FirstOrDefault(o => o.GetHorizontal() == neighbour.GetHorizontal() - 1 && o.GetVertical() == neighbour.GetVertical());
                         break;
                     case "Right":
@@ -234,7 +235,7 @@ namespace TicTacChessMHou27022023
                     default:
                         break;
                 }
-                //If there is a forbidden bord it sets this picturebox backcolor to transparent
+                // If there is a forbidden bord it sets this picturebox backcolor to transparent
                 if (forbidden != null)
                 {
                     pcbForbidden = (PictureBox)gbxBoard.Controls.Find(forbidden.GetPictureName(), false)[0];
@@ -383,16 +384,18 @@ namespace TicTacChessMHou27022023
             // Board list, declare all available locations by referencing the names & tags
             // in the form of Board(1, 1, "pcbOne"), where pcbOne is the PictureBox name, and the (1, 1)
             // the horizontal and vertical axis in chronological order
+
+            // Add in Arduino coordinate units after the picturebox name (320, 20, 1150 ex.)
             boardList = new List<Board>();
-            boardList.Add(new Board(1, 1, "pcbOne"));
-            boardList.Add(new Board(2, 1, "pcbTwo"));
-            boardList.Add(new Board(3, 1, "pcbThree"));
-            boardList.Add(new Board(1, 2, "pcbFour"));
-            boardList.Add(new Board(2, 2, "pcbFive"));
-            boardList.Add(new Board(3, 2, "pcbSix"));
-            boardList.Add(new Board(1, 3, "pcbSeven"));
-            boardList.Add(new Board(2, 3, "pcbEight"));
-            boardList.Add(new Board(3, 3, "pcbNine"));
+            boardList.Add(new Board(1, 1, "pcbOne", 320, 20, 1150));
+            boardList.Add(new Board(2, 1, "pcbTwo", 400, 135, 1150));
+            boardList.Add(new Board(3, 1, "pcbThree", 570, 245, 1150));
+            boardList.Add(new Board(1, 2, "pcbFour", 850, 0, 1150));
+            boardList.Add(new Board(2, 2, "pcbFive", 900, 110, 1150));
+            boardList.Add(new Board(3, 2, "pcbSix", 1050, 200, 1150));
+            boardList.Add(new Board(1, 3, "pcbSeven", 1330, 0, 1150));
+            boardList.Add(new Board(2, 3, "pcbEight", 1400, 95, 1150));
+            boardList.Add(new Board(3, 3, "pcbNine", 1520, 175, 1150));
 
             // Declare all possible locations for the player to win from
             winList = new List<string>();
@@ -476,14 +479,6 @@ namespace TicTacChessMHou27022023
                 gameStart = true;
                 UpdateAllBoardcolors();
             }
-            /* else if (startingBlack.Length == 3 && startingWhite.Length == 3 && turnColor == "White")
-            {
-                lblGamestate.Text = "White's turn";
-            }
-            else if (startingBlack.Length == 3 && startingWhite.Length == 3 && turnColor == "Black")
-            {
-                lblGamestate.Text = "Black's turn";
-            } */
         }
 
         private void UpdatePieceOnBoardColors()
@@ -670,7 +665,8 @@ namespace TicTacChessMHou27022023
         
         public void NextArduinoStep()
         {
-
+            // Increment the Arduino counter to allow for a new command to run
+            moveArduinoCounter++;
         }
     }
 }
