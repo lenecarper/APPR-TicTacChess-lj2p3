@@ -76,7 +76,7 @@ namespace TicTacChessMHou27022023
 
                     Thread.Sleep(200); //wait 100 ms to open port
 
-                    this.Text = "Main - using com port: " + cbbSerialPortsDkal.Text;
+                    this.Text = "Main - using port: " + cbbSerialPortsDkal.Text;
                     PrintLn("Using com port: " + cbbSerialPortsDkal.Text, "W");
                     btnSendMessage.Enabled = true;
                     txbSendMessage.Enabled = true;
