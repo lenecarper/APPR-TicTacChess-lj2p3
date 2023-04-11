@@ -281,12 +281,14 @@ namespace TicTacChessMHou27022023
                 pb.AllowDrop = true;
                 pb.BackColor = Color.Transparent;
             }
+            SetupGame();
         }
 
         private void pcbAllPieces_MouseDown(object sender, MouseEventArgs e)
         {
             // Set the board as inactive, check available setup locations
             activeBoard = null;
+            // oldBoard = activeBoard;
             pcbFrom = (PictureBox)sender;
             if (pcbFrom.BackColor == Color.Transparent)
             {
@@ -528,10 +530,12 @@ namespace TicTacChessMHou27022023
             {
                 arduinoForm = new Form2();
                 arduinoForm.Show();
+                lblGamestate.Text = "Arduino is running commands";
                 tmrArduino.Enabled = true;
             }
             else
             {
+                lblGamestate.Text = "Resuming game..";
                 arduinoForm.Close();
             }
         }
