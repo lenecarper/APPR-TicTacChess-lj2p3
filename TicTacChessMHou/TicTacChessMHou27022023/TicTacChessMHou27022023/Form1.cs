@@ -528,6 +528,7 @@ namespace TicTacChessMHou27022023
             {
                 arduinoForm = new Form2();
                 arduinoForm.Show();
+                tmrArduino.Enabled = true;
             }
             else
             {
@@ -616,7 +617,7 @@ namespace TicTacChessMHou27022023
             if (moveBusy == false)
             {
                 moveBusy = true;
-                arduino.WriteArduino(commando);
+                arduinoForm.WriteArduino(commando);
             }
         }
 

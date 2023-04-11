@@ -226,6 +226,7 @@ namespace TicTacChessMHou27022023
             // Check for the last command sent to the Arduino
             int totalLines = rtbLogging.Lines.Length;
             string lastLine = rtbLogging.Lines[totalLines - 2];
+            btnScanPortsDkal.Enabled = false;
             if (lastLine.Contains("VS:Ready"))
             {
                 // Vertical axis is ready
