@@ -79,6 +79,7 @@ namespace TicTacChessMHou27022023
 
                 // Search the board for selected pieces
                 activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
+                oldBoard = activeBoard;
                 activePiece = activeBoard.GetPiece();
 
                 GetBoardOptions();
@@ -325,7 +326,8 @@ namespace TicTacChessMHou27022023
                 pcbFrom.Image = null;
                 if (arduinoOn)
                 {
-                    oldBoard = activeBoard;
+                    moveArduinoCounter = 0;
+                    newBoard = activeBoard;
                     tmrArduino.Enabled = true;
                 }
 
@@ -394,16 +396,16 @@ namespace TicTacChessMHou27022023
 
             // Add in Arduino coordinate units after the picturebox name (320, 20, 1150 ex.)
             boardList = new List<Board>();
-            boardList.Add(new Board(1, 1, "pcbOne", 320, 20, 1150));
-            boardList.Add(new Board(2, 1, "pcbTwo", 400, 135, 1150));
-            boardList.Add(new Board(3, 1, "pcbThree", 570, 245, 1150));
-            boardList.Add(new Board(1, 2, "pcbFour", 850, 0, 1150));
-            boardList.Add(new Board(2, 2, "pcbFive", 900, 110, 1150));
-            boardList.Add(new Board(3, 2, "pcbSix", 1050, 200, 1150));
-            boardList.Add(new Board(1, 3, "pcbSeven", 1330, 0, 1150));
-            boardList.Add(new Board(2, 3, "pcbEight", 1400, 95, 1150));
-            boardList.Add(new Board(3, 3, "pcbNine", 1520, 175, 1150));
-
+            boardList.Add(new Board(1, 1, "pcbOne", 320, 20));
+            boardList.Add(new Board(2, 1, "pcbTwo", 400, 135));
+            boardList.Add(new Board(3, 1, "pcbThree", 570, 245));
+            boardList.Add(new Board(1, 2, "pcbFour", 850, 0));
+            boardList.Add(new Board(2, 2, "pcbFive", 900, 110));
+            boardList.Add(new Board(3, 2, "pcbSix", 1050, 200));
+            boardList.Add(new Board(1, 3, "pcbSeven", 1330, 0));
+            boardList.Add(new Board(2, 3, "pcbEight", 1400, 95));
+            boardList.Add(new Board(3, 3, "pcbNine", 1520, 175));
+            
             // Declare all possible locations for the player to win from
             winList = new List<string>();
             winList.Add("012");
