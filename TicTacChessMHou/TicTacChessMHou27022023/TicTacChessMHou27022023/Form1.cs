@@ -323,6 +323,11 @@ namespace TicTacChessMHou27022023
                 activePiece.SetCurrentPicturebox(pcbTo.Name);
                 activeBoard.SetPiece(activePiece);
                 pcbFrom.Image = null;
+                if (arduinoOn)
+                {
+                    oldBoard = activeBoard;
+                    tmrArduino.Enabled = true;
+                }
 
                 if (turnColor == "White")
                 {
@@ -531,7 +536,6 @@ namespace TicTacChessMHou27022023
                 arduinoForm = new Form2();
                 arduinoForm.Show();
                 lblGamestate.Text = "Arduino is running commands";
-                tmrArduino.Enabled = true;
             }
             else
             {
@@ -621,7 +625,18 @@ namespace TicTacChessMHou27022023
             if (moveBusy == false)
             {
                 moveBusy = true;
+                foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
+                {
+                    item.AllowDrop = false;
+                }
                 arduinoForm.WriteArduino(commando);
+            }
+            else
+            {
+                foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
+                {
+                    item.AllowDrop = true;
+                }
             }
         }
 
