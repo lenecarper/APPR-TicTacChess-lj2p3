@@ -20,11 +20,13 @@ namespace TicTacChessMHou27022023
 
         string sendCommando = "";
 
-        Form1 mainform = new Form1();
+        Form1 mainform = null;
 
-        public Form2()
+        public Form2(Form1 main)
         {
             InitializeComponent();
+
+            mainform = main;
         }
 
         #region Setup connection

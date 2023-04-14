@@ -46,7 +46,7 @@ namespace TicTacChessMHou27022023
         Board oldBoard = null;
         Board newBoard = null;
         int moveArduinoCounter = 0;
-        int baseDropVertical = 0;
+        int baseDropVertical = 950;
         Form2 arduinoForm = null;
 
         public Form1()
@@ -71,34 +71,34 @@ namespace TicTacChessMHou27022023
         {
             pcbFrom = (PictureBox)sender;
 
-            if (pcbFrom.BackColor == Color.Transparent)
+            if (gameStart == true)
             {
-                // Gets the previous piece location
-                horizontal = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(0, 1));
-                vertical = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(1, 1));
+                if (pcbFrom.BackColor == Color.Transparent)
+                    {
+                    // Gets the previous piece location
+                    horizontal = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(0, 1));
+                    vertical = Convert.ToInt32(pcbFrom.Tag.ToString().Substring(1, 1));
 
-                // Search the board for selected pieces
-                activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
-                oldBoard = activeBoard;
-                activePiece = activeBoard.GetPiece();
+                    // Search the board for selected pieces
+                    activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
+                    oldBoard = activeBoard;
+                    activePiece = activeBoard.GetPiece();
 
-                GetBoardOptions();
-                UpdateLocations();
-                CheckForIllegalMoves();
+                    GetBoardOptions();
+                    UpdateLocations();
+                    CheckForIllegalMoves();
 
-                if (gameStart == true)
-                {
                     if (pcbFrom.Image != null && pcbFrom.BackColor == Color.Transparent)
                     {
                         pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
                     }
-                }
 
-                foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
-                {
-                    if (item.BackColor == Color.Green)
+                    foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
                     {
-                        item.BackColor = Color.Transparent;
+                        if (item.BackColor == Color.Green)
+                        {
+                            item.BackColor = Color.Transparent;
+                        }
                     }
                 }
             }
@@ -535,7 +535,7 @@ namespace TicTacChessMHou27022023
             arduinoOn = ckxArduino.Checked;
             if (arduinoOn)
             {
-                arduinoForm = new Form2();
+                arduinoForm = new Form2(this);
                 arduinoForm.Show();
                 lblGamestate.Text = "Arduino is running commands";
             }
@@ -608,37 +608,17 @@ namespace TicTacChessMHou27022023
             else if (moveArduinoCounter == 14)
             {
                 tmrArduino.Enabled = false;
-                if (turnColor == "White")
-                {
-                    lblGamestate.Text = "Black's turn";
-                    turnColor = "Black";
-                }
-                else
-                {
-                    lblGamestate.Text = "White's turn";
-                    turnColor = "White";
-                }
+                gameStart = true;
             }
-            UpdateAllBoardcolors();
-            gameStart = true;
-            CheckWinner(); 
-            
-             
+
             if (moveBusy == false)
             {
                 moveBusy = true;
-                foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
-                {
-                    item.AllowDrop = false;
-                }
                 arduinoForm.WriteArduino(commando);
             }
             else
             {
-                foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
-                {
-                    item.AllowDrop = true;
-                }
+                lblGamestate.Text = "Arduino is busy.";
             }
         }
 
@@ -689,6 +669,7 @@ namespace TicTacChessMHou27022023
         {
             // Increment the Arduino counter to allow for a new command to run
             moveArduinoCounter++;
+            moveBusy = false;
         }
     }
 }
