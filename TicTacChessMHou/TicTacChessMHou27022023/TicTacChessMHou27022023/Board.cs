@@ -16,6 +16,7 @@ namespace TicTacChessMHou27022023
         private Piece currentPiece = null;
         private string pictureName = "";
 
+        // Board class to declare coordinates and positions
         public Board(int c_horizontal, int c_vertical, string c_pictureName, int c_arduinoHor, int c_arduinoRot)
         {
             horizontal  = c_horizontal;

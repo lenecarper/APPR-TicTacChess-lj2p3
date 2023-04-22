@@ -56,6 +56,7 @@ namespace TicTacChessMHou27022023
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // Set selected piece color as white, allow picturebox dropping in the groupbox
             selectedPieceColor = "White";
             UpdatePieceColor();
 
@@ -64,13 +65,16 @@ namespace TicTacChessMHou27022023
                 item.AllowDrop = true;
             }
 
+            // Setup/initialize game
             SetupGame();
         }
 
+        // Function to run while the board has a MouseDown event
         private void pcbBoard_MouseDown(object sender, MouseEventArgs e)
         {
             pcbFrom = (PictureBox)sender;
 
+            // Check whether the game has started or not
             if (gameStart == true)
             {
                 if (pcbFrom.BackColor == Color.Transparent)
@@ -84,15 +88,18 @@ namespace TicTacChessMHou27022023
                     oldBoard = activeBoard;
                     activePiece = activeBoard.GetPiece();
 
+                    // Get board options, make sure pieces can't move on top- or over eachother
                     GetBoardOptions();
                     UpdateLocations();
                     CheckForIllegalMoves();
 
+                    // Check if the receiving picturebox is not null and a piece can be dropped on the color
                     if (pcbFrom.Image != null && pcbFrom.BackColor == Color.Transparent)
                     {
                         pcbFrom.DoDragDrop(pcbFrom.Image, DragDropEffects.Copy);
                     }
 
+                    // Loop through the board, if a box is checked as green, change it back to transparent
                     foreach (PictureBox item in gbxBoard.Controls.OfType<PictureBox>())
                     {
                         if (item.BackColor == Color.Green)
@@ -118,6 +125,7 @@ namespace TicTacChessMHou27022023
             UpdateLocations();
         }
 
+        // Change the selectable pieces depending on which color the user has checked
         private void UpdatePieceColor()
         {
             if (selectedPieceColor == "White")
@@ -151,6 +159,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Clear the board of any residual colors
         private void ClearBoardColors()
         {
             foreach (PictureBox pb in gbxBoard.Controls.OfType<PictureBox>())
@@ -159,6 +168,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Check piece move options before being able to place a piece on the board
         private void GetBoardOptions()
         {
             pieceOptions = "";
@@ -179,8 +189,10 @@ namespace TicTacChessMHou27022023
             Board up = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() && x.GetVertical() == activeBoard.GetVertical() - 1);
             Board down = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() && x.GetVertical() == activeBoard.GetVertical() + 1);
 
+            // If a piece is selected and is not null
             if (activePiece != null)
             {
+                // Check for every piece whether they are allowed to be placed
                 if (activePiece.GetName() == "Rook" || activePiece.GetName() == "Queen")
                 {
                     CheckForNeighbour(right, "Right");
@@ -221,6 +233,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Check the board for neighboring pieces, disallow dropping onto other pieces
         private void CheckForNeighbour(Board neighbour, string direction)
         {
             if (neighbour != null && neighbour.GetPiece() != null)
@@ -255,7 +268,7 @@ namespace TicTacChessMHou27022023
                     default:
                         break;
                 }
-                // If there is a forbidden bord it sets this picturebox backcolor to transparent
+                // If the board move is forbidden, set it to transparent
                 if (forbidden != null)
                 {
                     pcbForbidden = (PictureBox)gbxBoard.Controls.Find(forbidden.GetPictureName(), false)[0];
@@ -264,6 +277,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Select turn color when checked
         private void rdbWhite_CheckedChanged(object sender, EventArgs e)
         {
             selectedPieceColor = "White";
@@ -271,6 +285,7 @@ namespace TicTacChessMHou27022023
             UpdatePieceOnBoardColors();
         }
 
+        // Select turn color when checked
         private void rdbBlack_CheckedChanged(object sender, EventArgs e)
         {
             selectedPieceColor = "Black";
@@ -278,8 +293,10 @@ namespace TicTacChessMHou27022023
             UpdatePieceOnBoardColors();
         }
 
+        // Restart the game when the button is clicked
         private void btnRestart_Click(object sender, EventArgs e)
         {
+            // Select white pieces, update (board) colors, allow dropping on the board and reset variables
             selectedPieceColor = "White";
             UpdatePieceColor();
             UpdatePieceOnBoardColors();
@@ -304,14 +321,15 @@ namespace TicTacChessMHou27022023
             SetupGame();
         }
 
+        // Function to run on every picturebox piece when the MouseDown is toggled
         private void pcbAllPieces_MouseDown(object sender, MouseEventArgs e)
         {
             // Set the board as inactive, check available setup locations
             activeBoard = null;
-            // oldBoard = activeBoard;
             pcbFrom = (PictureBox)sender;
             if (pcbFrom.BackColor == Color.Transparent)
             {
+                // Set the active piece as the current piece that's being held, copy the active piece to the new box
                 foreach (Piece item in pieceList)
                 {
                     if (item.GetBasePictureboxName() == pcbFrom.Name && item.GetColor() == selectedPieceColor)
@@ -325,6 +343,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Function to run when the DragDrop event is toggled
         private void pcbBoard_DragDrop(object sender, DragEventArgs e)
         {
             // Gets the currently held piece as an image and copies it to the designated picturebox
@@ -336,13 +355,16 @@ namespace TicTacChessMHou27022023
             horizontal = Convert.ToInt32(pcbTo.Tag.ToString().Substring(0, 1));
             vertical = Convert.ToInt32(pcbTo.Tag.ToString().Substring(1, 1));
 
+            // If there is an active board
             if (activeBoard != null)
             {
+                // Set pieces to null, reset variables, check board list
                 activeBoard.SetPiece(null);
                 activeBoard = boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical);
                 activePiece.SetCurrentPicturebox(pcbTo.Name);
                 activeBoard.SetPiece(activePiece);
                 pcbFrom.Image = null;
+                // If the Arduino checkbox is checked, reset moves to 0, set the new board as the active board, enable Arduino timer
                 if (arduinoOn)
                 {
                     moveArduinoCounter = 0;
@@ -350,6 +372,7 @@ namespace TicTacChessMHou27022023
                     tmrArduino.Enabled = true;
                 }
 
+                // Check turn color and check the winner
                 if (turnColor == "White")
                 {
                     turnColor = "Black";
@@ -364,16 +387,20 @@ namespace TicTacChessMHou27022023
             }
             else
             {
+                // Set active piece if above function gets passed
                 activePiece.SetCurrentPicturebox(pcbTo.Name);
                 boardList.FirstOrDefault(x => x.GetHorizontal() == horizontal && x.GetVertical() == vertical).SetPiece(activePiece);
 
+                // Increment pieces on board counter
                 onBoardCount++;
                 activePiece.SetOnBoard(true);
                 UpdateStartingPositions();
             }
+            // Clear all board colors
             ClearBoardColors();
             UpdatePieceOnBoardColors();
 
+            // If 6 pieces have been placed on the board, start the game and set the turn color to 'White'
             if (onBoardCount == 6)
             {
                 onBoardCount++;
@@ -383,16 +410,20 @@ namespace TicTacChessMHou27022023
             UpdateAllBoardcolors();
         }
 
+        // Function to run when the DragOver event is toggled
         private void pcbBoard_DragOver(object sender, DragEventArgs e)
         {
             pcbTo = (PictureBox)sender;
 
+            // Check if the picturebox is allowed to be dragged over
             if (pcbTo.BackColor == Color.Green)
             {
+                // Place the picturebox
                 e.Effect = DragDropEffects.Copy;
             }
             else
             {
+                // Pass
                 e.Effect = DragDropEffects.None;
             }
         }
@@ -439,6 +470,7 @@ namespace TicTacChessMHou27022023
             winList.Add("048");
         }
 
+        // Check for a game winner
         public void CheckWinner()
         {
             string boardOne = "";
@@ -490,6 +522,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Check for allowed starting positions per color
         private void UpdateStartingPositions()
         {
             if (activePiece.GetColor() == "White")
@@ -503,7 +536,6 @@ namespace TicTacChessMHou27022023
 
             if (startingBlack.Length == 3 && startingWhite.Length == 3)
             {
-                // Console.WriteLine($"{startingWhite} {startingBlack}"); // Debugging
                 lblGamestate.Text = "Game started, white begins";
 
                 gameStart = true;
@@ -511,12 +543,15 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Update colors based on whether the piece has been set on the board or not
         private void UpdatePieceOnBoardColors()
         {
             foreach (Piece item in pieceList)
             {
+                // Loop through the groupbox and chheck whether the picturebox has been set or not
                 foreach (PictureBox picturebox in gbxPieces.Controls.OfType<PictureBox>())
                 {
+                    // If the selected picturebox has been placed, set it to red and disable drag/dropping
                     if (item.GetBasePictureboxName() == picturebox.Name && item.GetColor() == selectedPieceColor)
                     {
                         if (item.GetIsOnBoard())
@@ -532,13 +567,16 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Check whether the player's turn color is the same as the pieces
         private void UpdateAllBoardcolors()
         {
+            // Loop through the board and check which color's turn it is
             foreach (PictureBox pb in gbxBoard.Controls.OfType<PictureBox>())
             {
                 Board b = boardList.FirstOrDefault(x => x.GetPictureName() == pb.Name);
                 if (b.GetPiece() != null)
                 {
+                    // Make the background transparent if it's their turn, otherwise make it gray and disable drag/dropping
                     if (b.GetPiece().GetColor() == turnColor)
                     {
                         pb.BackColor = Color.Transparent;
@@ -551,8 +589,10 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Confirm whether the checkbox has been checked
         private void ckxArduino_CheckedChanged(object sender, EventArgs e)
         {
+            // If the checkbox has been checked, show Form2 (the Arduino form) and update the Gamestate label
             arduinoOn = ckxArduino.Checked;
             if (arduinoOn)
             {
@@ -567,6 +607,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Run these Arduino commands in a row as long as the timer is active
         private void tmrArduino_Tick(object sender, EventArgs e)
         {
             lblGamestate.Text = "Arduino is running commands";
@@ -628,10 +669,12 @@ namespace TicTacChessMHou27022023
             }
             else if (moveArduinoCounter == 14)
             {
+                // Disable timer, start the game again
                 tmrArduino.Enabled = false;
                 gameStart = true;
             }
 
+            // If the Arduino is not busy yet, activate it and send it a command
             if (moveBusy == false)
             {
                 moveBusy = true;
@@ -643,6 +686,7 @@ namespace TicTacChessMHou27022023
             }
         }
 
+        // Configuration for the Arduino coordination (zero before using)
         public string GetStartingNumber(string currentStart)
         {
             int newNumber = boardList.IndexOf(boardList.FirstOrDefault(f => f.GetPictureName() == pcbTo.Name));
@@ -686,6 +730,7 @@ namespace TicTacChessMHou27022023
             return currentStart;
         }
         
+        // Increment the Arduino command counter, disable while it's not running commands
         public void NextArduinoStep()
         {
             // Increment the Arduino counter to allow for a new command to run

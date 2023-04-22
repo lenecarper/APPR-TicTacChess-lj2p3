@@ -40,11 +40,13 @@ namespace TicTacChessMHou27022023
             currentPictureboxName = newCurrentPicturebox;
         }
 
+        // Boolean to check whether a piece is on board
         public void SetOnBoard(bool newIsOnBoard)
         {
             isOnBoard = newIsOnBoard;
         }
 
+        // Check which piece is allowed to move where
         public string GetMoveOptions(int curHor, int curVer, int _newHor, int _newVer)
         {
             oldHor = curHor;
@@ -63,6 +65,8 @@ namespace TicTacChessMHou27022023
             }
             return moveOptions;
         }
+
+        // Define possible locations for the pieces to move to
 
         public void MoveRook()
         {
@@ -139,10 +143,6 @@ namespace TicTacChessMHou27022023
             int temp_x = Math.Abs(newHor - oldHor);
             int temp_y = Math.Abs(newVer - oldVer);
 
-            /*if (temp_x == temp_y)
-            {
-                moveOptions = $"{newHor}{newVer}";
-            }*/
             if (temp_y == 1)
             {
                 if (temp_x == 0 || temp_x == 1)
