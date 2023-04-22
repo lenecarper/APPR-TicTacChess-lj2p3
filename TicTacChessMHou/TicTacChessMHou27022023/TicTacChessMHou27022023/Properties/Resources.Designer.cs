@@ -63,6 +63,26 @@ namespace TicTacChessMHou27022023.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Chess_King_Black {
+            get {
+                object obj = ResourceManager.GetObject("Chess_King_Black", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Chess_King_White {
+            get {
+                object obj = ResourceManager.GetObject("Chess_King_White", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Chess_Knight_Black {
             get {
                 object obj = ResourceManager.GetObject("Chess_Knight_Black", resourceCulture);

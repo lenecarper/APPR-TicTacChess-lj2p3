@@ -125,12 +125,14 @@ namespace TicTacChessMHou27022023
                 pcbKnight.Image = Properties.Resources.Chess_Knight_White;
                 pcbRook.Image = Properties.Resources.Chess_Rook_White;
                 pcbQueen.Image = Properties.Resources.Chess_Queen_White;
+                pcbKing.Image = Properties.Resources.Chess_King_White;
             }
             else if (selectedPieceColor == "Black")
             {
                 pcbKnight.Image = Properties.Resources.Chess_Knight_Black;
                 pcbRook.Image = Properties.Resources.Chess_Rook_Black;
                 pcbQueen.Image = Properties.Resources.Chess_Queen_Black;
+                pcbKing.Image = Properties.Resources.Chess_King_Black;
             }
         }
 
@@ -198,6 +200,23 @@ namespace TicTacChessMHou27022023
                     CheckForNeighbour(upLeft, "UpLeft");
                     CheckForNeighbour(downRight, "DownRight");
                     CheckForNeighbour(downLeft, "DownLeft");
+                }
+                if (activePiece.GetName() == "King")
+                {
+                    Board upRight = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical() - 1);
+                    Board upLeft = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() - 1 && x.GetVertical() == activeBoard.GetVertical() - 1);
+                    Board downRight = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() + 1 && x.GetVertical() == activeBoard.GetVertical() + 1);
+                    Board downLeft = boardList.FirstOrDefault(x => x.GetHorizontal() == activeBoard.GetHorizontal() - 1 && x.GetVertical() == activeBoard.GetVertical() + 1);
+
+                    CheckForNeighbour(right, "Right");
+                    CheckForNeighbour(left, "Left");
+                    CheckForNeighbour(up, "Up");
+                    CheckForNeighbour(down, "Down");
+                    CheckForNeighbour(upRight, "UpRight");
+                    CheckForNeighbour(upLeft, "UpLeft");
+                    CheckForNeighbour(downRight, "DownRight");
+                    CheckForNeighbour(downLeft, "DownLeft");
+
                 }
             }
         }
@@ -386,9 +405,11 @@ namespace TicTacChessMHou27022023
             pieceList.Add(new Piece("Rook", "White"));
             pieceList.Add(new Piece("Knight", "White"));
             pieceList.Add(new Piece("Queen", "White"));
+            pieceList.Add(new Piece("King", "White"));
             pieceList.Add(new Piece("Rook", "Black"));
             pieceList.Add(new Piece("Knight", "Black"));
             pieceList.Add(new Piece("Queen", "Black"));
+            pieceList.Add(new Piece("King", "Black"));
 
             // Board list, declare all available locations by referencing the names & tags
             // in the form of Board(1, 1, "pcbOne"), where pcbOne is the PictureBox name, and the (1, 1)

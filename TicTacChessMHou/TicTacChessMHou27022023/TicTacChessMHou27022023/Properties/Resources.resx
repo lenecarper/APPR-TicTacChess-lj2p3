@@ -118,22 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Chess_Knight_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Chess_Knight_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Chess_Queen_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Chess_Queen_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Chess_Rook_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chess_Rook_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Chess_Rook_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Chess_Rook_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Chess_Rook_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Chess_Rook_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Chess_Knight_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chess_Knight_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Chess_King_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chess_King_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Chess_Knight_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Chess_Knight_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Chess_Queen_White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chess_Queen_White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Chess_Queen_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Chess_Queen_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Chess_King_Black" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Chess_King_Black.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

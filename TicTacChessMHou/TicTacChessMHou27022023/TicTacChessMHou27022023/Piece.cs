@@ -57,6 +57,7 @@ namespace TicTacChessMHou27022023
                 case "Rook": MoveRook(); break;
                 case "Knight": MoveKnight(); break;
                 case "Queen": MoveQueen(); break;
+                case "King": MoveKing(); break;
                 default:
                     break;
             }
@@ -129,6 +130,31 @@ namespace TicTacChessMHou27022023
                     {
                         moveOptions = $"{newHor}{newVer}";
                     }
+                }
+            }
+        }
+
+        public void MoveKing()
+        {
+            int temp_x = Math.Abs(newHor - oldHor);
+            int temp_y = Math.Abs(newVer - oldVer);
+
+            if (temp_x == temp_y)
+            {
+                moveOptions = $"{newHor}{newVer}";
+            }
+            else if (temp_y == 2 || temp_y == 1)
+            {
+                if (temp_x == 0)
+                {
+                    moveOptions = $"{newHor}{newVer}";
+                }
+            }
+            else if (temp_x == 2 || temp_x == 1)
+            {
+                if (temp_y == 0)
+                {
+                    moveOptions = $"{newHor}{newVer}";
                 }
             }
         }

@@ -40,6 +40,9 @@ namespace TicTacChessMHou27022023
             this.rdbBlack = new System.Windows.Forms.RadioButton();
             this.gbxPieces = new System.Windows.Forms.GroupBox();
             this.lblGamestate = new System.Windows.Forms.Label();
+            this.ckxArduino = new System.Windows.Forms.CheckBox();
+            this.tmrArduino = new System.Windows.Forms.Timer(this.components);
+            this.pcbKing = new System.Windows.Forms.PictureBox();
             this.pcbOne = new System.Windows.Forms.PictureBox();
             this.pcbNine = new System.Windows.Forms.PictureBox();
             this.pcbTwo = new System.Windows.Forms.PictureBox();
@@ -52,10 +55,9 @@ namespace TicTacChessMHou27022023
             this.pcbQueen = new System.Windows.Forms.PictureBox();
             this.pcbRook = new System.Windows.Forms.PictureBox();
             this.pcbKnight = new System.Windows.Forms.PictureBox();
-            this.ckxArduino = new System.Windows.Forms.CheckBox();
-            this.tmrArduino = new System.Windows.Forms.Timer(this.components);
             this.gbxBoard.SuspendLayout();
             this.gbxPieces.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbKing)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbOne)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbTwo)).BeginInit();
@@ -176,7 +178,7 @@ namespace TicTacChessMHou27022023
             this.gbxPieces.Margin = new System.Windows.Forms.Padding(4);
             this.gbxPieces.Name = "gbxPieces";
             this.gbxPieces.Padding = new System.Windows.Forms.Padding(4);
-            this.gbxPieces.Size = new System.Drawing.Size(133, 455);
+            this.gbxPieces.Size = new System.Drawing.Size(291, 455);
             this.gbxPieces.TabIndex = 53;
             this.gbxPieces.TabStop = false;
             this.gbxPieces.Text = "Pieces";
@@ -189,6 +191,35 @@ namespace TicTacChessMHou27022023
             this.lblGamestate.Size = new System.Drawing.Size(94, 17);
             this.lblGamestate.TabIndex = 54;
             this.lblGamestate.Text = "Set up pieces";
+            // 
+            // ckxArduino
+            // 
+            this.ckxArduino.AutoSize = true;
+            this.ckxArduino.Location = new System.Drawing.Point(199, 15);
+            this.ckxArduino.Name = "ckxArduino";
+            this.ckxArduino.Size = new System.Drawing.Size(118, 21);
+            this.ckxArduino.TabIndex = 55;
+            this.ckxArduino.Text = "Open Arduino";
+            this.ckxArduino.UseVisualStyleBackColor = true;
+            this.ckxArduino.CheckedChanged += new System.EventHandler(this.ckxArduino_CheckedChanged);
+            // 
+            // tmrArduino
+            // 
+            this.tmrArduino.Tick += new System.EventHandler(this.tmrArduino_Tick);
+            // 
+            // pcbKing
+            // 
+            this.pcbKing.BackColor = System.Drawing.Color.Transparent;
+            this.pcbKing.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pcbKing.Location = new System.Drawing.Point(645, 108);
+            this.pcbKing.Margin = new System.Windows.Forms.Padding(4);
+            this.pcbKing.Name = "pcbKing";
+            this.pcbKing.Size = new System.Drawing.Size(133, 123);
+            this.pcbKing.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pcbKing.TabIndex = 40;
+            this.pcbKing.TabStop = false;
+            this.pcbKing.Tag = "0";
+            this.pcbKing.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbAllPieces_MouseDown);
             // 
             // pcbOne
             // 
@@ -369,26 +400,12 @@ namespace TicTacChessMHou27022023
             this.pcbKnight.Tag = "0";
             this.pcbKnight.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pcbAllPieces_MouseDown);
             // 
-            // ckxArduino
-            // 
-            this.ckxArduino.AutoSize = true;
-            this.ckxArduino.Location = new System.Drawing.Point(199, 15);
-            this.ckxArduino.Name = "ckxArduino";
-            this.ckxArduino.Size = new System.Drawing.Size(118, 21);
-            this.ckxArduino.TabIndex = 55;
-            this.ckxArduino.Text = "Open Arduino";
-            this.ckxArduino.UseVisualStyleBackColor = true;
-            this.ckxArduino.CheckedChanged += new System.EventHandler(this.ckxArduino_CheckedChanged);
-            // 
-            // tmrArduino
-            // 
-            this.tmrArduino.Tick += new System.EventHandler(this.tmrArduino_Tick);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 546);
+            this.ClientSize = new System.Drawing.Size(794, 546);
+            this.Controls.Add(this.pcbKing);
             this.Controls.Add(this.ckxArduino);
             this.Controls.Add(this.lblGamestate);
             this.Controls.Add(this.rdbWhite);
@@ -402,6 +419,7 @@ namespace TicTacChessMHou27022023
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gbxBoard.ResumeLayout(false);
             this.gbxPieces.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcbKing)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbOne)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbNine)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbTwo)).EndInit();
@@ -445,5 +463,6 @@ namespace TicTacChessMHou27022023
         private System.Windows.Forms.Label lblGamestate;
         private System.Windows.Forms.CheckBox ckxArduino;
         private System.Windows.Forms.Timer tmrArduino;
+        private System.Windows.Forms.PictureBox pcbKing;
     }
 }
