@@ -139,20 +139,20 @@ namespace TicTacChessMHou27022023
             int temp_x = Math.Abs(newHor - oldHor);
             int temp_y = Math.Abs(newVer - oldVer);
 
-            if (temp_x == temp_y)
+            /*if (temp_x == temp_y)
             {
                 moveOptions = $"{newHor}{newVer}";
-            }
-            else if (temp_y == 2 || temp_y == 1)
+            }*/
+            if (temp_y == 1)
             {
-                if (temp_x == 0)
+                if (temp_x == 0 || temp_x == 1)
                 {
                     moveOptions = $"{newHor}{newVer}";
                 }
             }
-            else if (temp_x == 2 || temp_x == 1)
+            else if (temp_x == 1)
             {
-                if (temp_y == 0)
+                if (temp_y == 0 || temp_y == 1)
                 {
                     moveOptions = $"{newHor}{newVer}";
                 }
